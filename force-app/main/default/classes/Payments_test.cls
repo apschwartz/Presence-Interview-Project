@@ -1,5 +1,5 @@
 @istest
-private without sharing class Payments_test {
+private with sharing class Payments_test {
 
     @istest
     private static void handleTrigger_test() {

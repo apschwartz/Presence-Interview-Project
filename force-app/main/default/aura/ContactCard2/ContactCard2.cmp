@@ -1,0 +1,34 @@
+<aura:component>
+    <aura:attribute name="contact"
+                    type="Contact" />
+
+    <c:AddPaymentForm aura:id="paymentForm" contactId="{!v.contact.Id}" />
+    
+    <lightning:card title="{!v.contact.Name}"
+                    iconName="standard:contact">
+        <aura:set attribute="actions">
+            <lightning:button label="Add Payment"
+                              title="Add Payment"
+                              onclick="{! c.addPayment }" />
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            <dl class="slds-list_horizontal slds-wrap">
+                <dt class="slds-item_label slds-text-color_weak"
+                    title="First Label">Total Payments:</dt>
+                <dd class="slds-item_detail"
+                    title="Description for first label">
+                    <lightning:formattedNumber value="{!v.contact.TotalProjectPayments__c}"
+                                               style="currency"
+                                               currencyCode="USD" />
+                </dd>
+                <dt class="slds-item_label slds-text-color_weak"
+                    title="Second Label">Last Payment:</dt>
+                <dd class="slds-item_detail"
+                    title="Description for second label">
+                    <lightning:formattedDateTime value="{!v.contact.MostRecentProjectPaymentDate__c}"
+                                                 timeZone="UTC" />
+                </dd>
+            </dl>
+        </p>
+    </lightning:card>
+</aura:component>

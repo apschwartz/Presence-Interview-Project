@@ -2,8 +2,6 @@
  * Service class to hold all soql operations for Contact.
  */
 public class ContactSelector {
-    private ContactSelector() {
-    }
 
     /**
      * public class representing a Contact object.  Additonal fields are provided
@@ -40,13 +38,33 @@ public class ContactSelector {
 
         Map<Id, ContactInfo> result = new Map<Id, ContactInfo>();
         for (AggregateResult ar : getContactsByIdWithAggInfo) {
-            result.put( (Id)ar.get('contactId'), 
-                        new ContactInfo( (Id)ar.get('contactId'), 
+            result.put( (Id)ar.get('contactId'),
+                        new ContactInfo( (Id)ar.get('contactId'),
                                          (Decimal)ar.get('totalPaid'),
                                          (Date)ar.get('latestPaidDate')));
         }
 
         return result;
+    }
+
+    /**
+     * Return all Contacts that have Payment__c records along with a
+     * subselect of Payment records.
+     */
+    public static Contact[] getContactsWithPaymentInfo() {
+        return [SELECT Name,
+                MostRecentProjectPaymentDate__c,
+                TotalProjectPayments__c,
+                (Select Name,
+                 AmountPaid__c,
+                 DatePaid__c,
+                 Project__r.Name
+                 From Payments__r
+                 Order By DatePaid__c DESC, CreatedDate DESC)
+                FROM Contact
+                WHERE Id IN (Select Contact__c From Payment__c)
+                ORDER BY Name ASC];
+
     }
 
 }

@@ -20,11 +20,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Date_Paid__c</field>
+                <field>DatePaid__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Amount_Paid__c</field>
+                <field>AmountPaid__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

@@ -3,9 +3,6 @@
  */
 public class Contacts {
 
-    public Contacts() {
-    }
-
     /**
      * Update Contacts after one or more payments have been made or deleted.  This is updating the Contacts'
      * Total Project Payment and Most Recent Payment Date to match the now-existing
