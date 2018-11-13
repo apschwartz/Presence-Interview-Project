@@ -1,0 +1,73 @@
+<aura:component>
+    <aura:attribute name="showMe"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="contactId"
+                    type="Id" />
+    <aura:attribute name="payment"
+                    type="Payment__c" />
+    <aura:attribute name="formMode"
+                    type="String"
+                    default="{!v.payment == null ? 'Add' : 'Edit'}" />
+    <aura:method name="setShowMe"
+                 action="{!c.setShowMe}"
+                 description="Tell component to show or hide itself">
+        <aura:attribute name="showMe"
+                        type="Boolean" />
+    </aura:method>
+    <aura:handler name="init"
+                  value="{! this }"
+                  action="{! c.init }" />
+    <aura:registerEvent name="paymentChangeEvent"
+                        type="c:PaymentChange" />
+
+
+    <aura:renderIf isTrue="{!v.showMe}">
+        <div style="height: 640px;">
+            <section role="dialog"
+                     tabindex="-1"
+                     aria-labelledby="modal-heading-01"
+                     aria-modal="true"
+                     aria-describedby="modal-content-id-1"
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <article class="slds-card slds-p-around_medium">
+                        <header class="slds-modal__header">
+                            <h2 id="modal-heading"
+                                class="slds-text-heading_medium slds-hyphenate">
+                                {!v.formMode} a Payment
+                            </h2>
+                        </header>
+                        <lightning:recordEditForm aura:id="Payment"
+                                                  recordId="{!v.payment.Id}"
+                                                  objectApiName="Payment__c"
+                                                  onsuccess="{!c.saveComplete}">
+                            <lightning:messages />
+                            <lightning:inputField fieldName="Contact__c"
+                                                  value="{!v.contactId}"
+                                                  disabled="true" />
+                            <lightning:inputField fieldName="Project__c"
+                                                  aura:id="projectField" />
+                            <lightning:inputField fieldName="AmountPaid__c"
+                                                  aura:id="AmountPaidField" />
+                            <lightning:inputField fieldName="DatePaid__c"
+                                                  aura:id="datePaidField" />
+                            <lightning:button aura:id="submit"
+                                              variant="brand"
+                                              type="submit"
+                                              label="{!v.formMode + ' Payment'}"
+                                              class="slds-m-top_medium" />
+                            <lightning:button aura:id="cancel"
+                                              label="Cancel"
+                                              onclick="{! c.handleCancel }"
+                                              class="slds-m-top_medium" />
+                        </lightning:recordEditForm>
+                    </article>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:renderIf>
+
+
+</aura:component>

@@ -1,0 +1,18 @@
+<aura:component>
+    <aura:attribute name="contact"
+                    type="Contact" />
+
+    <div class="slds-card-wrapper">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-3">
+                <c:ContactCard2 contact="{!v.contact}" />
+            </div>
+            <div class="slds-col slds-size_2-of-3">
+                <ui:scrollerWrapper class="scrollerSize">
+                    <c:ContactPaymentsTable payments="{!v.contact.Payments__r}" />
+                </ui:scrollerWrapper>
+            </div>
+        </div>
+    </div>
+
+</aura:component>

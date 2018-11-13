@@ -1,0 +1,29 @@
+<!-- AccountListview using basic aura iteration on a manually-built table -->
+<aura:component controller="ContactsPaymentsManagerController"
+                implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="contacts"
+                    type="Contact[]" />
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.doInit}" />
+    <aura:handler name="paymentChangeEvent"
+                  event="c:PaymentChange"
+                  action="{!c.handlePaymentChangeEvent}" />
+
+    <!-- REQUIRED SLDS WRAPPER -->
+    <div class="slds-scope slds-theme_default slds-p-vertical_medium">
+        <!-- PRIMARY CONTENT WRAPPER -->
+        <div class="myapp">
+            <!-- CONTACT LIST TABLE -->
+            <div id="contact-list"
+                 class="slds-p-horizontal_large">
+                <aura:iteration items="{!v.contacts}"
+                                var="contact">
+                    <c:ContactWithPayments contact="{!contact}" />
+                    <div class="slds-m-bottom_medium" />
+                </aura:iteration>
+            </div> <!-- / ACCOUNT LIST TABLE -->
+        </div> <!-- / PRIMARY CONTENT WRAPPER -->
+    </div> <!-- / REQUIRED SLDS WRAPPER -->
+
+</aura:component>

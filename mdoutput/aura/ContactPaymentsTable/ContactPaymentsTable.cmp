@@ -1,0 +1,41 @@
+<aura:component controller="ContactsPaymentsManagerController">
+    <aura:attribute name="payments"
+                    type="Payment__c[]" />
+    <aura:attribute name="editPayment"
+                    type="Payment__c" />
+    <aura:attribute name="columns"
+                    type="List" />
+    <aura:attribute name="recordError"
+                    type="String" />
+
+    <aura:registerEvent name="paymentChangeEvent"
+                        type="c:PaymentChange" />
+
+    <aura:handler name="init"
+                  value="{! this }"
+                  action="{! c.init }" />
+
+    <c:AddPaymentForm aura:id="paymentForm"
+                      payment="{!v.editPayment}" />
+
+    <!-- <force:recordData aura:id="deletePayment"
+                      recordId="{!v.editPayment.Id}"
+                      fields="Id"
+                      targetError="{!v.recordError}"
+                      recordUpdated="{!c.handleRecordDelete}" /> -->
+
+    <c:ConfirmationDialogBox aura:id="deleteConfirmDialog"
+                             dialogMessage="Delete this payment?"
+                             option1label="Yes"
+                             option1result="yes"
+                             option2label="No"
+                             option2result="no" />
+
+    <lightning:datatable columns="{! v.columns }"
+                         data="{! v.payments }"
+                         keyField="Id"
+                         hideCheckboxColumn="true"
+                         onrowaction="{! c.handleRowAction }" />
+
+
+</aura:component>
